@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthorFromServer {
-
     private Long id;
     private String name;
-
 }

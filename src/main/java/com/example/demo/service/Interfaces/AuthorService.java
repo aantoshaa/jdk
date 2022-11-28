@@ -7,7 +7,6 @@ import com.example.demo.entity.Author;
 import java.util.Collection;
 
 public interface AuthorService {
-
     Author CreateAuthor(AuthorDto authorDto);
     Author getAuthorById(Long authorId);
     Author getAuthorByName(String name);

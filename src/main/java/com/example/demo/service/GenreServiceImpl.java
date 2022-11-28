@@ -14,7 +14,6 @@ import java.util.Collection;
 
 @Service
 public class GenreServiceImpl implements GenreService {
-
     private final ModelMapper modelMapper;
     private final GenreRepository genreRepository;
 
@@ -38,9 +37,9 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public Collection<GenreFromServer> getAllGenres() {
 
-        var genres = genreRepository.findAll();
+        Iterable<Genre> genres = genreRepository.findAll();
 
-        var genresFromServer = new ArrayList<GenreFromServer>();
+        ArrayList<GenreFromServer> genresFromServer = new ArrayList<GenreFromServer>();
 
         for (var genre : genres) {
             var genreFromServer = this.modelMapper.map(genre, GenreFromServer.class);
@@ -48,12 +47,6 @@ public class GenreServiceImpl implements GenreService {
         }
 
         return genresFromServer;
-
-
-
-
-
-
     }
 
     @Override

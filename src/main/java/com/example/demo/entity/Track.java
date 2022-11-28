@@ -15,7 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 public class Track {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",nullable = false)
@@ -37,7 +36,4 @@ public class Track {
 
     @ManyToMany
     private List<User> users;
-
-
-
 }

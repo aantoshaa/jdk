@@ -20,7 +20,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @Configuration
 public class WebSecurityConfig {
-
     private final JWTFilter jwtFilter;
     private final UserDetailsServiceImpl userDetailsService;
 
@@ -39,8 +38,6 @@ public class WebSecurityConfig {
     public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -66,11 +63,6 @@ public class WebSecurityConfig {
                         sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
                         and().
                         build();
-
-
     }
-
-
-
 }
 

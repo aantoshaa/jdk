@@ -15,7 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 public class Author {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",nullable = false)

@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RatingDto {
-
     private int mark;
-
     private Track track;
 }

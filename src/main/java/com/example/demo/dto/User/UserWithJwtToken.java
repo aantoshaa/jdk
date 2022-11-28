@@ -8,10 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserWithJwtToken {
-
     private String login;
-
     private Boolean isAdmin;
-
     private String token;
 }

@@ -30,8 +30,6 @@ public class JWTFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
-
-
         String authHeader = httpServletRequest.getHeader("Authorization");
 
         if (authHeader != null && !authHeader.isBlank() && authHeader.startsWith("Bearer ")) {
@@ -39,7 +37,7 @@ public class JWTFilter extends OncePerRequestFilter {
 
             if (jwt.isBlank()) {
                 httpServletResponse.sendError(HttpServletResponse.SC_BAD_REQUEST,
-                        "Invalid JWT Token in Bearer Header");
+                        "Access token is not provided");
             } else {
                 try {
                     String login = jwtUtil.validateTokenAndRetrieveClaim(jwt);
@@ -55,7 +53,7 @@ public class JWTFilter extends OncePerRequestFilter {
                     }
                 } catch (JWTVerificationException exc) {
                     httpServletResponse.sendError(HttpServletResponse.SC_BAD_REQUEST,
-                            "Invalid JWT Token");
+                            "Invalid access token format");
                 }
             }
         }

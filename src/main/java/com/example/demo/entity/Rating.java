@@ -14,7 +14,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 public class Rating {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",nullable = false)
@@ -30,5 +29,4 @@ public class Rating {
     @ManyToOne
     @JoinColumn(name = "track_id",referencedColumnName = "id", nullable = false)
     private Track track;
-
 }

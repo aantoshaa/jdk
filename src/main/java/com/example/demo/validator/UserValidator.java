@@ -10,7 +10,6 @@ import org.springframework.validation.Validator;
 
 @Component
 public class UserValidator implements Validator {
-
     private final UserDetailsServiceImpl userDetailsService;
 
     @Autowired

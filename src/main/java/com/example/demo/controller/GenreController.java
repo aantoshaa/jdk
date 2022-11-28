@@ -16,7 +16,6 @@ import java.util.Collection;
 @RequestMapping("/genres/")
 @CrossOrigin("*")
 public class GenreController {
-
     private final GenreService genreService;
 
     @Autowired
@@ -24,13 +23,10 @@ public class GenreController {
         this.genreService = genreService;
     }
 
-
     @PostMapping(value = "AddGenre", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Genre> addAuthor(@RequestBody GenreDto genreDto) {
-
-
         if (genreService.findGenreByName(genreDto.getName()) == null) {
-            var genre = genreService.createGenre(genreDto);
+            Genre genre = genreService.createGenre(genreDto);
             return new ResponseEntity<>(genre, HttpStatus.OK);
         } else
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -38,18 +34,13 @@ public class GenreController {
 
     @GetMapping(value = "GetGenre/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Genre> getGenre(@PathVariable String name) {
-
-        var genre = genreService.findGenreByName(name);
+        Genre genre = genreService.findGenreByName(name);
         return new ResponseEntity<>(genre, HttpStatus.OK);
     }
 
-
-
     @GetMapping(value="GetAllGenres",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Collection<GenreFromServer>> getAllGenres() {
-
-        var genres = genreService.getAllGenres();
+        Collection<GenreFromServer> genres = genreService.getAllGenres();
         return new ResponseEntity<>(genres, HttpStatus.OK);
     }
-
 }

@@ -13,20 +13,16 @@ import java.util.Date;
 
 @Component
 public class JWTUtil {
-
     @Value("${jwt_secret}")
     private String secret = "a";
 
     public String generateToken(String login) {
         Date expirationDate = Date.from(ZonedDateTime.now().plusMinutes(60).toInstant());
-
         return JWT.create().withSubject("User details").withClaim("login", login).withIssuedAt(new Date()).withIssuer("Demo").withExpiresAt(expirationDate).sign(Algorithm.HMAC256(secret));
     }
 
     public String validateTokenAndRetrieveClaim(String token) {
-
         JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secret)).withSubject("User details").withIssuer("Demo").build();
-
         DecodedJWT jwt = verifier.verify(token);
         return jwt.getClaim("login").asString();
     }

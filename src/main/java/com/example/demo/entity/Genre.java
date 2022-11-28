@@ -14,7 +14,6 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 public class Genre {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

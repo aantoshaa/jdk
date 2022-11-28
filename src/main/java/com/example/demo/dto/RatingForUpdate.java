@@ -8,11 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RatingForUpdate {
-
     private int mark;
-
     private Long trackId;
-
-    private String login  ;
-
+    private String login;
 }

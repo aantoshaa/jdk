@@ -10,12 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RatingWithNewMark {
-
-
     private int mark;
-
     private User user;
-
     private Track track;
-
 }

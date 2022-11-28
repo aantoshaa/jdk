@@ -23,7 +23,6 @@ import java.util.Collection;
 
 @Service
 public class UserServiceImpl implements UserService {
-
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JWTUtil jwtUtil;
@@ -43,7 +42,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserWithJwtToken login(UnauthorizedUser unauthorizedUser) {
-
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(unauthorizedUser.getLogin(), unauthorizedUser.getPassword());
 
         try {
@@ -55,7 +53,6 @@ public class UserServiceImpl implements UserService {
         String token = jwtUtil.generateToken(unauthorizedUser.getLogin());
         boolean isAdmin = isAdmin(unauthorizedUser.getLogin());
         return new UserWithJwtToken(unauthorizedUser.getLogin(), isAdmin, token);
-
     }
 
     @Override
@@ -80,8 +77,6 @@ public class UserServiceImpl implements UserService {
 
         String token = jwtUtil.generateToken(user.getLogin());
         return new UserWithJwtToken(user.getLogin(), user.getIsAdmin(), token);
-
-
     }
 
 
@@ -109,6 +104,4 @@ public class UserServiceImpl implements UserService {
             throw new NonExistedUserException("User with login " + login + " doesn't exist");
         }
     }
-
-
 }

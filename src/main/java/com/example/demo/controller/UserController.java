@@ -20,72 +20,52 @@ import java.util.Collection;
 @CrossOrigin("*")
 @ControllerAdvice
 public class UserController {
-
     private final UserServiceImpl userService;
-
 
     @Autowired
     public UserController(UserServiceImpl userService) {
         this.userService = userService;
     }
 
-
     @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> getUser(@PathVariable Long id) {
+        if (id == null)  return ResponseEntity.badRequest().build();
 
-        if (id == null)
-            return ResponseEntity.badRequest().build();
-
-        var user = userService.getUserById(id);
-
-        if (user == null)
-            return ResponseEntity.notFound().build();
+        User user = userService.getUserById(id);
+        if (user == null) return ResponseEntity.notFound().build();
 
         return ResponseEntity.ok(user);
-
     }
 
-
-    @ApiResponse(responseCode = "200", description = "Users found")
-    @ApiResponse(responseCode = "204", description = "No Users found")
+    @ApiResponse(responseCode = "200", description = "All users")
+    @ApiResponse(responseCode = "204", description = "Users were not found")
     @GetMapping(value = "all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Collection<User>> getAllUsers() {
-
-        var users = userService.getAllUsers();
+        Collection<User> users = userService.getAllUsers();
 
         if (users == null || users.size() == 0)
             return ResponseEntity.noContent().build();
 
         return new ResponseEntity<>(users, HttpStatus.OK);
-
-
     }
 
-
     @ApiResponse(responseCode = "200", description = "User created")
-    @ApiResponse(responseCode = "400", description = "Invalid user data")
+    @ApiResponse(responseCode = "400", description = "Invalid user payload")
     @PostMapping(value = "register", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> registerUser(@RequestBody @Valid UnauthorizedUser unauthorizedUser, BindingResult bindingResult) {
-
         try {
-            var userWithJwtToken = userService.register(unauthorizedUser, bindingResult);
+            UserWithJwtToken userWithJwtToken = userService.register(unauthorizedUser, bindingResult);
             return new ResponseEntity<>(userWithJwtToken, HttpStatus.OK);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-
     }
 
     @ApiResponse(responseCode = "200", description = "User logged in")
     @ApiResponse(responseCode = "400", description = "Invalid user data")
     @PostMapping(value = "login", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserWithJwtToken> loginUser(@RequestBody @Valid UnauthorizedUser unauthorizedUser) {
-
-        var userWithJwtToken = userService.login(unauthorizedUser);
+        UserWithJwtToken userWithJwtToken = userService.login(unauthorizedUser);
         return new ResponseEntity<>(userWithJwtToken, HttpStatus.OK);
-
     }
-
-
-
 }

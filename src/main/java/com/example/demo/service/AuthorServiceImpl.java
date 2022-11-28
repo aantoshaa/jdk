@@ -14,7 +14,6 @@ import java.util.Collection;
 
 @Service
 public class AuthorServiceImpl implements AuthorService {
-
     private final AuthorRepository authorRepository;
     private final ModelMapper modelMapper;
 
@@ -24,10 +23,9 @@ public class AuthorServiceImpl implements AuthorService {
         this.modelMapper = modelMapper;
     }
 
-
     @Override
     public Author CreateAuthor(AuthorDto authorName) {
-        var author = this.modelMapper.map(authorName, Author.class);
+        Author author = this.modelMapper.map(authorName, Author.class);
         return authorRepository.save(author);
     }
 
@@ -43,22 +41,15 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Collection<AuthorFromServer> getAllAuthors() {
-        var authors = authorRepository.findAll();
+        Iterable<Author> authors = authorRepository.findAll();
 
-        var authorsFromServer = new ArrayList<AuthorFromServer>();
+        ArrayList<AuthorFromServer> authorsFromServer = new ArrayList<AuthorFromServer>();
 
-        for (var author : authors) {
-            var authorFromServer = this.modelMapper.map(author, AuthorFromServer.class);
+        for (Author author : authors) {
+            AuthorFromServer authorFromServer = this.modelMapper.map(author, AuthorFromServer.class);
             authorsFromServer.add(authorFromServer);
         }
 
         return authorsFromServer;
-
     }
-
-
-
-
-
-
 }

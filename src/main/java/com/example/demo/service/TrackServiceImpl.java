@@ -3,10 +3,7 @@ package com.example.demo.service;
 import com.example.demo.dto.RatingDto;
 import com.example.demo.dto.RatingWithNewMark;
 import com.example.demo.dto.TrackDto;
-import com.example.demo.entity.Author;
-import com.example.demo.entity.Genre;
-import com.example.demo.entity.Rating;
-import com.example.demo.entity.Track;
+import com.example.demo.entity.*;
 import com.example.demo.repository.RatingRepository;
 import com.example.demo.repository.TrackRepository;
 import com.example.demo.repository.UserRepository;
@@ -19,7 +16,6 @@ import java.util.Collection;
 
 @Service
 public class TrackServiceImpl {
-
     private final TrackRepository trackRepository;
     private final UserRepository userRepository;
     private final RatingRepository ratingRepository;
@@ -34,11 +30,10 @@ public class TrackServiceImpl {
     }
 
     public Collection<TrackDto> getAllTracksForCurrentUser(Long id) {
-
-        var currentUser = userRepository.findById(id).orElse(null);
+        User currentUser = userRepository.findById(id).orElse(null);
 
         if (currentUser == null)
-            throw new IllegalArgumentException("User with id " + id + " not found");
+            throw new IllegalArgumentException("User with id " + id + " wasn't found");
 
         var allTracks = new ArrayList<TrackDto>();
         trackRepository.findAll().forEach(track -> allTracks.add(modelMapper.map(track, TrackDto.class)));
@@ -53,13 +48,11 @@ public class TrackServiceImpl {
                 }
             }
         }
-
         return allTracks;
     }
 
 
     public TrackDto addOrUpdateTrackUserRating(Long trackId, int rating, Long id) {
-
         var user = userRepository.findById(id).orElse(null);
         if (user == null)
             throw new IllegalArgumentException("User with id " + id + " not found");
@@ -85,12 +78,12 @@ public class TrackServiceImpl {
 
     public TrackDto createTrack(String name, String path, Author author, Genre genre) {
         var track = new Track();
+
         track.setName(name);
         track.setPath(path);
         track.setAuthor(author);
         track.setGenre(genre);
         trackRepository.save(track);
-
 
         return modelMapper.map(track, TrackDto.class);
     }

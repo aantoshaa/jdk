@@ -22,7 +22,8 @@ public class EmailServiceImpl {
     }
 
     public void sendEmail ( String toEmail,String subject , String body){
-SimpleMailMessage mailMessage = new SimpleMailMessage();
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+
         mailMessage.setTo(toEmail);
         mailMessage.setSubject(subject);
         mailMessage.setText(body);
@@ -37,5 +38,4 @@ SimpleMailMessage mailMessage = new SimpleMailMessage();
             sendEmail(user.getEmail(), subject, body);
         }
     }
-
 }

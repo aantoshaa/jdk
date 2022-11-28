@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class ApiExceptionHandler {
-
     @ExceptionHandler(value = {NonExistedUserException.class})
     public ResponseEntity<Object> handleNonExistedUserException(NonExistedUserException e) {
           return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());

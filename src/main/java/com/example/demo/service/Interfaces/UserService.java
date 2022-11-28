@@ -10,18 +10,11 @@ import java.util.Collection;
 
 
 public interface UserService {
-
     UserWithJwtToken login(UnauthorizedUser User);
-
     @Transactional
     UserWithJwtToken register(UnauthorizedUser unauthorizedUser, BindingResult bindingResult);
-
     User getUserById(Long id);
-
     Collection<User> getAllUsers();
-
-
     Long getUserIdByLogin(String login);
-
     boolean isAdmin(String login);
 }
